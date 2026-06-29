@@ -119,9 +119,7 @@
             100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
         }
 
-        /* === ПРАВИЛЬНЫЙ СИМВОЛ O9A === */
-        /* Девятиконечная звезда = 3 наложенных равносторонних треугольника */
-        /* + перевёрнутый крест (символ O9A) */
+        /* === СИМВОЛ O9A === */
         .ona-symbol {
             display: flex;
             justify-content: center;
@@ -145,7 +143,6 @@
             filter: drop-shadow(0 0 18px rgba(140, 110, 95, 0.2));
         }
 
-        /* Треугольники — внешние линии */
         .ona-nine .tri {
             fill: none;
             stroke: #b8a49a;
@@ -154,7 +151,6 @@
             opacity: 0.85;
         }
 
-        /* Внутренние линии (для многослойности) */
         .ona-nine .tri-inner {
             fill: none;
             stroke: #8f7c70;
@@ -162,7 +158,6 @@
             opacity: 0.4;
         }
 
-        /* Перевёрнутый крест (символ O9A) */
         .ona-nine .inverted-cross {
             stroke: #b8a49a;
             stroke-width: 2.8;
@@ -176,7 +171,6 @@
             opacity: 0.4;
         }
 
-        /* Окружности */
         .ona-nine .circle-outer {
             fill: none;
             stroke: #7d6b60;
@@ -184,7 +178,6 @@
             opacity: 0.3;
         }
 
-        /* Центральная точка / руна */
         .ona-nine .center-dot {
             fill: #b8a49a;
             opacity: 0.6;
@@ -254,17 +247,25 @@
             opacity: 0.85;
         }
 
+        /* ДАТЫ — теперь настоящие */
         .dates {
-            font-size: 1.4rem;
-            color: #8d7e72;
+            font-size: 1.6rem;
+            color: #a8988a;
             letter-spacing: 2px;
-            margin: 0.2rem 0 1.2rem;
+            margin: 0.2rem 0 1.4rem;
             font-weight: 300;
             font-family: 'Courier New', monospace;
-            opacity: 0.7;
+            opacity: 0.8;
+            background: rgba(0,0,0,0.2);
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            display: inline-block;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(110, 90, 80, 0.1);
         }
         .dates span {
-            margin: 0 8px;
+            margin: 0 6px;
+            opacity: 0.5;
         }
 
         .message {
@@ -284,17 +285,6 @@
         }
         .message p:last-child {
             margin-bottom: 0;
-        }
-        .message .heart {
-            color: #b35f5f;
-            font-size: 1.6rem;
-            display: inline-block;
-            animation: pulseHeart 2s infinite alternate;
-            padding: 0 4px;
-        }
-        @keyframes pulseHeart {
-            0% { opacity: 0.5; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1.15); }
         }
 
         /* цветы */
@@ -334,6 +324,10 @@
                 width: 100px;
                 height: 100px;
             }
+            .dates {
+                font-size: 1.2rem;
+                padding: 0.2rem 0.8rem;
+            }
         }
     </style>
 </head>
@@ -342,49 +336,41 @@
         <!-- Свеча -->
         <div class="candle"></div>
 
-        <!-- ПРАВИЛЬНЫЙ СИМВОЛ O9A -->
+        <!-- СИМВОЛ O9A -->
         <div class="ona-symbol">
             <div class="ona-nine">
                 <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Внешняя окружность -->
                     <circle cx="70" cy="70" r="58" class="circle-outer" />
                     
-                    <!-- === 3 равносторонних треугольника (девятиконечная звезда) === -->
-                    <!-- Треугольник 1 (вершина вверх, 0°) -->
+                    <!-- 3 треугольника (9 лучей) -->
                     <polygon points="70,14 124,100 16,100" class="tri" />
                     <polygon points="70,26 112,90 28,90" class="tri-inner" />
                     
-                    <!-- Треугольник 2 (повёрнут на 40°) -->
                     <polygon points="70,14 124,100 16,100" class="tri" 
                              transform="rotate(40, 70, 70)" />
                     <polygon points="70,26 112,90 28,90" class="tri-inner" 
                              transform="rotate(40, 70, 70)" />
                     
-                    <!-- Треугольник 3 (повёрнут на 80°) -->
                     <polygon points="70,14 124,100 16,100" class="tri" 
                              transform="rotate(80, 70, 70)" />
                     <polygon points="70,26 112,90 28,90" class="tri-inner" 
                              transform="rotate(80, 70, 70)" />
 
-                    <!-- === ПЕРЕВЁРНУТЫЙ КРЕСТ (символ O9A) === -->
-                    <!-- Вертикальная линия (вверх от центра) -->
+                    <!-- Перевёрнутый крест -->
                     <line x1="70" y1="70" x2="70" y2="24" class="inverted-cross" />
                     <line x1="70" y1="70" x2="70" y2="32" class="inverted-cross-inner" />
-                    <!-- Горизонтальная линия -->
                     <line x1="48" y1="58" x2="92" y2="58" class="inverted-cross" />
                     <line x1="54" y1="62" x2="86" y2="62" class="inverted-cross-inner" />
-                    <!-- Нижняя часть (опущена вниз — перевёрнутый крест) -->
                     <line x1="70" y1="70" x2="70" y2="116" class="inverted-cross" />
                     <line x1="70" y1="70" x2="70" y2="108" class="inverted-cross-inner" />
 
-                    <!-- Центральная точка (символ единства) -->
                     <circle cx="70" cy="70" r="4" class="center-dot" />
                     <circle cx="70" cy="70" r="2" fill="#5f4f44" opacity="0.5" />
                 </svg>
             </div>
         </div>
 
-        <!-- Заголовок RIP -->
+        <!-- RIP -->
         <div class="rip-title">
             <span>RIP</span>
         </div>
@@ -401,17 +387,17 @@
             <i>«Вечная память»</i>
         </div>
 
-        <!-- Даты -->
+        <!-- ДАТЫ (настоящие) -->
         <div class="dates">
-            <span>●</span>  —  <span>●</span>
+            02.11.2006 <span>—</span> 29.06.2026
         </div>
 
-        <!-- Текст поминовения -->
+        <!-- Текст поминовения — только память, без любви и света -->
         <div class="message">
-            <p>Мы помним, скорбим и любим.</p>
-            <p>Ты навсегда в наших сердцах <span class="heart">♥</span></p>
-            <p style="font-size: 0.95rem; opacity: 0.7; margin-top: 0.6rem; letter-spacing: 1px;">
-                d2c, ты был светом в темноте.
+            <p>Мы помним.</p>
+            <p>Ты останешься в нашей памяти.</p>
+            <p style="font-size: 0.95rem; opacity: 0.6; margin-top: 0.6rem; letter-spacing: 1px;">
+                d2c
             </p>
         </div>
 
