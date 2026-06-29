@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIP d2c — ONA</title>
+    <title>RIP d2c — O9A</title>
     <style>
         /* Обнуление и базовые стили */
         * {
@@ -24,7 +24,7 @@
             background: radial-gradient(circle at 30% 40%, #1a1a1f, #030303 80%);
         }
 
-        /* Эффект старой плёнки / зерна — для атмосферы */
+        /* Эффект старой плёнки / зерна */
         body::before {
             content: '';
             position: fixed;
@@ -119,81 +119,75 @@
             100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
         }
 
-        /* Символ ОНА — девятиконечная звезда / углы */
+        /* === ПРАВИЛЬНЫЙ СИМВОЛ O9A === */
+        /* Девятиконечная звезда = 3 наложенных равносторонних треугольника */
+        /* + перевёрнутый крест (символ O9A) */
         .ona-symbol {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0.4rem auto 1.4rem;
+            margin: 0.2rem auto 1.2rem;
             width: 100%;
         }
 
         .ona-nine {
             position: relative;
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Девять лучей (линий) */
         .ona-nine svg {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 0 12px rgba(140, 110, 95, 0.25));
+            filter: drop-shadow(0 0 18px rgba(140, 110, 95, 0.2));
         }
 
-        .ona-nine .ray {
+        /* Треугольники — внешние линии */
+        .ona-nine .tri {
+            fill: none;
             stroke: #b8a49a;
             stroke-width: 2.2;
-            stroke-linecap: round;
-            opacity: 0.8;
-            transition: all 0.2s;
+            stroke-linejoin: round;
+            opacity: 0.85;
         }
 
-        .ona-nine .ray-inner {
-            stroke: #8f7c70;
-            stroke-width: 1.2;
-            opacity: 0.6;
-        }
-
-        .ona-nine .circle-outer {
+        /* Внутренние линии (для многослойности) */
+        .ona-nine .tri-inner {
             fill: none;
-            stroke: #7d6b60;
-            stroke-width: 1.8;
+            stroke: #8f7c70;
+            stroke-width: 1.0;
             opacity: 0.4;
         }
 
-        .ona-nine .circle-inner {
-            fill: none;
-            stroke: #6a5b52;
+        /* Перевёрнутый крест (символ O9A) */
+        .ona-nine .inverted-cross {
+            stroke: #b8a49a;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            opacity: 0.8;
+        }
+
+        .ona-nine .inverted-cross-inner {
+            stroke: #7d6b60;
             stroke-width: 1.2;
+            opacity: 0.4;
+        }
+
+        /* Окружности */
+        .ona-nine .circle-outer {
+            fill: none;
+            stroke: #7d6b60;
+            stroke-width: 1.5;
             opacity: 0.3;
         }
 
-        /* центральная цифра 9 — как символ ордена */
-        .ona-nine .nine-core {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2.6rem;
-            font-weight: 400;
-            color: #c0afa2;
-            text-shadow: 0 0 18px rgba(130, 100, 80, 0.3);
-            font-family: 'Georgia', 'Times New Roman', serif;
-            letter-spacing: 0px;
-            line-height: 1;
-            background: rgba(0,0,0,0.2);
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(120, 100, 90, 0.15);
+        /* Центральная точка / руна */
+        .ona-nine .center-dot {
+            fill: #b8a49a;
+            opacity: 0.6;
         }
 
         /* RIP */
@@ -303,7 +297,7 @@
             100% { opacity: 1; transform: scale(1.15); }
         }
 
-        /* цветы (элемент декора) */
+        /* цветы */
         .flower {
             font-size: 2.4rem;
             opacity: 0.25;
@@ -313,7 +307,6 @@
             word-break: break-all;
         }
 
-        /* адаптивность */
         @media (max-width: 480px) {
             .memorial-card {
                 padding: 1.6rem 1.2rem;
@@ -338,13 +331,8 @@
                 padding: 1rem;
             }
             .ona-nine {
-                width: 80px;
-                height: 80px;
-            }
-            .ona-nine .nine-core {
-                font-size: 2.2rem;
-                width: 44px;
-                height: 44px;
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
@@ -354,47 +342,45 @@
         <!-- Свеча -->
         <div class="candle"></div>
 
-        <!-- Символ Ордена Девяти Углов (девятиконечная звезда с цифрой 9 в центре) -->
+        <!-- ПРАВИЛЬНЫЙ СИМВОЛ O9A -->
         <div class="ona-symbol">
             <div class="ona-nine">
-                <!-- SVG-звезда с 9 лучами -->
-                <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                    <!-- внешняя окружность -->
-                    <circle cx="60" cy="60" r="48" class="circle-outer" />
-                    <circle cx="60" cy="60" r="34" class="circle-inner" />
-                    <!-- 9 лучей -->
-                    <g transform="translate(60,60)">
-                        <!-- луч 1 (0°) -->
-                        <line x1="0" y1="-20" x2="0" y2="-52" class="ray" />
-                        <line x1="0" y1="-14" x2="0" y2="-24" class="ray-inner" />
-                        <!-- луч 2 (40°) -->
-                        <line x1="15.3" y1="-12.9" x2="39.8" y2="-33.5" class="ray" />
-                        <line x1="10.7" y1="-9" x2="18.3" y2="-15.5" class="ray-inner" />
-                        <!-- луч 3 (80°) -->
-                        <line x1="24.8" y1="4.5" x2="51.2" y2="9.5" class="ray" />
-                        <line x1="17.4" y1="3.2" x2="23.6" y2="4.4" class="ray-inner" />
-                        <!-- луч 4 (120°) -->
-                        <line x1="19.6" y1="17.4" x2="40.8" y2="36.2" class="ray" />
-                        <line x1="13.7" y1="12.2" x2="18.8" y2="16.7" class="ray-inner" />
-                        <!-- луч 5 (160°) -->
-                        <line x1="4.5" y1="24.8" x2="9.5" y2="51.2" class="ray" />
-                        <line x1="3.2" y1="17.4" x2="4.4" y2="23.6" class="ray-inner" />
-                        <!-- луч 6 (200°) -->
-                        <line x1="-12.9" y1="15.3" x2="-33.5" y2="39.8" class="ray" />
-                        <line x1="-9" y1="10.7" x2="-15.5" y2="18.3" class="ray-inner" />
-                        <!-- луч 7 (240°) -->
-                        <line x1="-24.8" y1="4.5" x2="-51.2" y2="9.5" class="ray" />
-                        <line x1="-17.4" y1="3.2" x2="-23.6" y2="4.4" class="ray-inner" />
-                        <!-- луч 8 (280°) -->
-                        <line x1="-19.6" y1="-17.4" x2="-40.8" y2="-36.2" class="ray" />
-                        <line x1="-13.7" y1="-12.2" x2="-18.8" y2="-16.7" class="ray-inner" />
-                        <!-- луч 9 (320°) -->
-                        <line x1="-4.5" y1="-24.8" x2="-9.5" y2="-51.2" class="ray" />
-                        <line x1="-3.2" y1="-17.4" x2="-4.4" y2="-23.6" class="ray-inner" />
-                    </g>
+                <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Внешняя окружность -->
+                    <circle cx="70" cy="70" r="58" class="circle-outer" />
+                    
+                    <!-- === 3 равносторонних треугольника (девятиконечная звезда) === -->
+                    <!-- Треугольник 1 (вершина вверх, 0°) -->
+                    <polygon points="70,14 124,100 16,100" class="tri" />
+                    <polygon points="70,26 112,90 28,90" class="tri-inner" />
+                    
+                    <!-- Треугольник 2 (повёрнут на 40°) -->
+                    <polygon points="70,14 124,100 16,100" class="tri" 
+                             transform="rotate(40, 70, 70)" />
+                    <polygon points="70,26 112,90 28,90" class="tri-inner" 
+                             transform="rotate(40, 70, 70)" />
+                    
+                    <!-- Треугольник 3 (повёрнут на 80°) -->
+                    <polygon points="70,14 124,100 16,100" class="tri" 
+                             transform="rotate(80, 70, 70)" />
+                    <polygon points="70,26 112,90 28,90" class="tri-inner" 
+                             transform="rotate(80, 70, 70)" />
+
+                    <!-- === ПЕРЕВЁРНУТЫЙ КРЕСТ (символ O9A) === -->
+                    <!-- Вертикальная линия (вверх от центра) -->
+                    <line x1="70" y1="70" x2="70" y2="24" class="inverted-cross" />
+                    <line x1="70" y1="70" x2="70" y2="32" class="inverted-cross-inner" />
+                    <!-- Горизонтальная линия -->
+                    <line x1="48" y1="58" x2="92" y2="58" class="inverted-cross" />
+                    <line x1="54" y1="62" x2="86" y2="62" class="inverted-cross-inner" />
+                    <!-- Нижняя часть (опущена вниз — перевёрнутый крест) -->
+                    <line x1="70" y1="70" x2="70" y2="116" class="inverted-cross" />
+                    <line x1="70" y1="70" x2="70" y2="108" class="inverted-cross-inner" />
+
+                    <!-- Центральная точка (символ единства) -->
+                    <circle cx="70" cy="70" r="4" class="center-dot" />
+                    <circle cx="70" cy="70" r="2" fill="#5f4f44" opacity="0.5" />
                 </svg>
-                <!-- Центральная цифра 9 -->
-                <div class="nine-core">9</div>
             </div>
         </div>
 
@@ -415,12 +401,12 @@
             <i>«Вечная память»</i>
         </div>
 
-        <!-- Даты (символические) -->
+        <!-- Даты -->
         <div class="dates">
             <span>●</span>  —  <span>●</span>
         </div>
 
-        <!-- Основной текст поминовения -->
+        <!-- Текст поминовения -->
         <div class="message">
             <p>Мы помним, скорбим и любим.</p>
             <p>Ты навсегда в наших сердцах <span class="heart">♥</span></p>
@@ -429,7 +415,7 @@
             </p>
         </div>
 
-        <!-- Цветы (символ) -->
+        <!-- Цветы -->
         <div class="flower">✿ ✿ ✿</div>
     </div>
 </body>
