@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RIP d2c</title>
+  <style>
+    /* Обнуление и базовые стили */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0b0b0b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      padding: 1.5rem;
+      position: relative;
+      /* Траурный градиент — глубокий чёрный с намёком на тёмный индиго */
+      background: radial-gradient(circle at 30% 40%, #1a1a1f, #030303 80%);
+    }
+
+    /* Эффект старой плёнки / зерна — для атмосферы */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.12 0"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.3"/></svg>');
+      background-repeat: repeat;
+      background-size: 300px 300px;
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .memorial-card {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      width: 100%;
+      padding: 2.5rem 2.2rem;
+      background: rgba(10, 10, 12, 0.75);
+      backdrop-filter: blur(6px) brightness(0.9);
+      border: 1px solid rgba(80, 70, 75, 0.3);
+      border-radius: 48px 48px 32px 32px;
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.9),
+        inset 0 0 60px rgba(40, 30, 35, 0.3),
+        0 0 0 1px rgba(120, 100, 100, 0.1);
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    /* Внешняя траурная рамка-тень */
+    .memorial-card::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border-radius: 52px 52px 36px 36px;
+      background: linear-gradient(145deg, rgba(60, 50, 50, 0.2), rgba(20, 15, 15, 0.6));
+      z-index: -1;
+      filter: blur(3px);
+    }
+
+    /* Свеча (символ памяти) */
+    .candle {
+      margin: 0 auto 1.8rem;
+      width: 40px;
+      height: 70px;
+      background: #d9c8b0;
+      background: linear-gradient(180deg, #f2e0d0 0%, #b8a28e 80%, #8c7a6a 100%);
+      border-radius: 12px 12px 6px 6px;
+      position: relative;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.8), inset 0 -4px 8px rgba(0,0,0,0.3);
+      transform: scale(0.9);
+      transition: all 0.3s;
+      margin-top: 0.2rem;
+    }
+    .candle::before {
+      content: '';
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 24px;
+      background: #f5e6d0;
+      border-radius: 50% 50% 20% 20% / 60% 60% 20% 20%;
+      box-shadow: 
+        0 0 20px 8px rgba(255, 200, 120, 0.4),
+        0 0 50px 12px rgba(255, 160, 50, 0.2);
+      opacity: 0.8;
+      animation: flicker 3.5s infinite alternate;
+    }
+    /* фитиль */
+    .candle::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 12px;
+      background: #2a221e;
+      border-radius: 2px;
+      box-shadow: 0 0 6px #1a100c;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.6; transform: translateX(-50%) scale(0.95); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    }
+
+    /* RIP */
+    .rip-title {
+      font-size: 4.2rem;
+      font-weight: 700;
+      letter-spacing: 6px;
+      color: #d6cbc0;
+      text-shadow: 
+        0 0 12px rgba(160, 130, 110, 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.8);
+      margin-bottom: 0.4rem;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      word-break: break-word;
+    }
+    .rip-title span {
+      display: inline-block;
+      background: rgba(50, 40, 35, 0.4);
+      padding: 0 12px;
+      border-radius: 30px;
+      backdrop-filter: blur(2px);
+    }
+
+    .name {
+      font-size: 3.5rem;
+      font-weight: 400;
+      letter-spacing: 8px;
+      color: #b8a99a;
+      text-shadow: 0 0 20px rgba(100, 80, 70, 0.3);
+      margin-top: -0.2rem;
+      margin-bottom: 1rem;
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
+    }
+    .name small {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      opacity: 0.6;
+    }
+
+    .divider {
+      width: 90px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(180, 150, 130, 0.5), transparent);
+      margin: 1.2rem auto 1.8rem;
+    }
+
+    .epitaph {
+      font-size: 1.5rem;
+      color: #bfb0a3;
+      line-height: 1.7;
+      font-weight: 300;
+      letter-spacing: 1.5px;
+      background: rgba(0,0,0,0.25);
+      padding: 0.8rem 1rem;
+      border-radius: 60px;
+      backdrop-filter: blur(2px);
+      margin-bottom: 1.6rem;
+      font-style: italic;
+      border: 1px solid rgba(110, 90, 80, 0.15);
+    }
+    .epitaph i {
+      font-style: italic;
+      opacity: 0.85;
+    }
+
+    .dates {
+      font-size: 1.4rem;
+      color: #8d7e72;
+      letter-spacing: 2px;
+      margin: 0.5rem 0 1.6rem;
+      font-weight: 300;
+      font-family: 'Courier New', monospace;
+      opacity: 0.7;
+    }
+    .dates span {
+      margin: 0 8px;
+    }
+
+    .message {
+      font-size: 1.3rem;
+      color: #b8a89b;
+      line-height: 1.8;
+      background: rgba(20, 18, 18, 0.5);
+      padding: 1.4rem 1.8rem;
+      border-radius: 40px 12px 40px 12px;
+      border-left: 3px solid rgba(140, 110, 95, 0.3);
+      border-right: 3px solid rgba(140, 110, 95, 0.1);
+      backdrop-filter: blur(2px);
+      margin-top: 0.6rem;
+    }
+    .message p {
+      margin-bottom: 0.6rem;
+    }
+    .message p:last-child {
+      margin-bottom: 0;
+    }
+    .message .heart {
+      color: #b35f5f;
+      font-size: 1.6rem;
+      display: inline-block;
+      animation: pulseHeart 2s infinite alternate;
+      padding: 0 4px;
+    }
+    @keyframes pulseHeart {
+      0% { opacity: 0.5; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .footer {
+      margin-top: 2rem;
+      color: #5f554b;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(80, 70, 65, 0.2);
+      padding-top: 1.4rem;
+      opacity: 0.6;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* цветы (элемент декора) */
+    .flower {
+      font-size: 2.4rem;
+      opacity: 0.25;
+      letter-spacing: 12px;
+      margin: 0.5rem 0 -0.2rem;
+      filter: grayscale(0.7);
+      word-break: break-all;
+    }
+
+    /* адаптивность */
+    @media (max-width: 480px) {
+      .memorial-card {
+        padding: 1.6rem 1.2rem;
+        border-radius: 32px;
+      }
+      .rip-title {
+        font-size: 2.8rem;
+        letter-spacing: 3px;
+      }
+      .name {
+        font-size: 2.6rem;
+        letter-spacing: 4px;
+      }
+      .name small {
+        font-size: 1.4rem;
+      }
+      .epitaph {
+        font-size: 1.2rem;
+      }
+      .message {
+        font-size: 1.1rem;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="memorial-card">
+    <!-- Свеча -->
+    <div class="candle"></div>
+
+    <!-- Заголовок RIP -->
+    <div class="rip-title">
+      <span>RIP</span>
+    </div>
+
+    <!-- Имя -->
+    <div class="name">
+      d2c <small>†</small>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Эпитафия -->
+    <div class="epitaph">
+      <i>«Вечная память»</i>
+    </div>
+
+    <!-- Даты (символические) -->
+    <div class="dates">
+      <span>●</span>  —  <span>●</span>
+    </div>
+
+    <!-- Основной текст поминовения -->
+    <div class="message">
+      <p>Мы помним, скорбим и любим.</p>
+      <p>Ты навсегда в наших сердцах <span class="heart">♥</span></p>
+      <p style="font-size: 0.95rem; opacity: 0.7; margin-top: 0.6rem; letter-spacing: 1px;">
+        d2c, ты был светом в темноте.
+      </p>
+    </div>
+
+    <!-- Цветы (символ) -->
+    <div class="flower">✿ ✿ ✿</div>
+
+    <!-- Нижняя подпись -->
+    <div class="footer">
+      Скорбим • Помним • Не забудем
+    </div>
+  </div>
+</body>
+</html>
